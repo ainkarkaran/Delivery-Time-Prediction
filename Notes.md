@@ -1,6 +1,4 @@
-# Linear Regression — Core Theory (Expanded, No Redundancy)
 
----
 
 ## 1. What it is
 
@@ -231,20 +229,6 @@ Model finds parameters that minimize total squared error
 Equivalent to projecting data onto a linear subspace  
 
 Tradeoff between fit accuracy and model simplicity  
-
----
-
-## 19. Agent-Level Insight
-
-Use as baseline before complex models  
-
-Useful for feature importance understanding  
-Acts as diagnostic tool for dataset issues  
-
-Always validate  
-Assumptions  
-Residual behavior  
-Stability under data perturbations  
 
 ---
 
