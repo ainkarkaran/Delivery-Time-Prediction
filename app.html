@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Delivery Time Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-container">
+
+        <div class="card">
+            <h1>Food Delivery Time Predictor</h1>
+            <p class="subtitle">
+                Enter delivery details to estimate delivery time.
+            </p>
+
+            <form id="predictionForm">
+
+                <div class="form-group">
+                    <label for="Distance_km">Distance (km)</label>
+                    <input 
+                        type="number" 
+                        id="Distance_km" 
+                        step="0.1" 
+                        value="5" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="Weather">Weather</label>
+                    <select id="Weather" required>
+                        <option value="Sunny">Sunny</option>
+                        <option value="Rainy">Rainy</option>
+                        <option value="Cloudy">Cloudy</option>
+                        <option value="Foggy">Foggy</option>
+                        <option value="Stormy">Stormy</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Traffic_Level">Traffic Level</label>
+                    <select id="Traffic_Level" required>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High" selected>High</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Time_of_Day">Time of Day</label>
+                    <select id="Time_of_Day" required>
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Evening" selected>Evening</option>
+                        <option value="Night">Night</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Vehicle_Type">Vehicle Type</label>
+                    <select id="Vehicle_Type" required>
+                        <option value="Bike" selected>Bike</option>
+                        <option value="Scooter">Scooter</option>
+                        <option value="Car">Car</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Preparation_Time_min">Preparation Time (minutes)</label>
+                    <input 
+                        type="number" 
+                        id="Preparation_Time_min" 
+                        step="1" 
+                        value="15" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="Courier_Experience_yrs">Courier Experience (years)</label>
+                    <input 
+                        type="number" 
+                        id="Courier_Experience_yrs" 
+                        step="0.1" 
+                        value="2" 
+                        required
+                    >
+                </div>
+
+                <button type="submit">Predict Delivery Time</button>
+            </form>
+
+            <div class="result-box">
+                <h2>Prediction Result</h2>
+                <p id="result">No prediction yet</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
