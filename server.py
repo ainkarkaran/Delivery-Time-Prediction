@@ -1,26 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+import os
 
 
-# Load saved model and preprocessor
-model = joblib.load("model.pkl")
-preprocessor = joblib.load("preprocessor.pkl")
+app = FastAPI(title="Food Delivery Time Prediction API")
 
 
-app = FastAPI(title="Delivery Time Prediction API")
-
-
-# Allow frontend to call backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For development only
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+model = joblib.load("model.pkl")
+preprocessor = joblib.load("preprocessor.pkl")
 
 
 class DeliveryInput(BaseModel):
@@ -34,16 +34,24 @@ class DeliveryInput(BaseModel):
 
 
 @app.get("/")
-def home():
-    return {
-        "message": "Delivery Time Prediction API is running"
-    }
+def open_app():
+    return FileResponse("app.html")
+
+
+@app.get("/style.css")
+def get_css():
+    return FileResponse("style.css")
+
+
+@app.get("/script.js")
+def get_js():
+    return FileResponse("script.js")
 
 
 @app.post("/predict")
 def predict_delivery_time(data: DeliveryInput):
     try:
-        input_data = pd.DataFrame([{
+        new_data = pd.DataFrame([{
             "Distance_km": data.Distance_km,
             "Weather": data.Weather,
             "Traffic_Level": data.Traffic_Level,
@@ -53,14 +61,17 @@ def predict_delivery_time(data: DeliveryInput):
             "Courier_Experience_yrs": data.Courier_Experience_yrs
         }])
 
-        processed_data = preprocessor.transform(input_data)
-        prediction = model.predict(processed_data)
+        processed = preprocessor.transform(new_data)
+        prediction = model.predict(processed)
 
         return {
-            "prediction": float(prediction[0])
+            "success": True,
+            "prediction": round(float(prediction[0]), 2),
+            "unit": "minutes"
         }
 
     except Exception as e:
         return {
+            "success": False,
             "error": str(e)
         }
